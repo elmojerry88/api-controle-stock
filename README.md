@@ -7,7 +7,7 @@
 - Docker - para baixar [clique aqui](https://docs.docker.com/engine/install/).
 - PHP 8.2- para baixar [clique aqui](https://www.php.net/downloads), caso tiver a usar o linux é necessário instalar todas as libs do php.
 - Composer - para baixar [clique aqui](https://getcomposer.org/download/)
-- Front-End - para baixar [clique aqui](https://github.com/elmojerry88/stock-app)
+
 
 ## Instalação:
 
@@ -125,5 +125,4 @@ A URL base para acessar os endpoints da api é  [http://localhost:8000/api](http
 
 ## NOTA:
 
-- É necessário que tenha baixado o Front-End da aplicação, para uma experiência completa!
-- Essa aplicação sofrerá alterações, verique as branchs... pode ser que tenha uma nova versão da aplicação.
+

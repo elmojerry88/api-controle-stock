@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash; 
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $user = User::all();
@@ -19,61 +19,78 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+ 
     public function store(UserStoreRequest $request)
     {
         $user = $request->validated();
 
         $user['password'] = bcrypt($request->password);
         
-        
         User::create($user);
-        $message = 'usuário criado';
-        return response($message,200);
+
+        return response()->json(['message' => 'usuário criado com sucesso'],200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show()
-    // {
+    public function login(Request $request)
+    {
+        $credencials = $request->only([
+            'email',
+            'password',
+        ]);
         
+        $user = User::where('email', $request->email)->first();
+ 
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
 
-    //     // $users = $users->count();
+        $user->tokens()->delete();
 
-    //     return response()->json($users);
-    // }
+        $data = [
+            'token_type' => 'Bearer',
+            'acess_token' => $user->createToken($request->email)->plainTextToken,
+            'user' => $user,
+        ];
 
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(UserUpdateRequest $request, string $id)
-    // {
-    //     if ($request->password)
-    //     {
-    //         $request['password'] = bcrypt($request->password);
-    //     }
+        return response($data, 200)
+                    ->header('Content-Type', 'aplication/json');
+    }
 
-    //     dd($request->validated());
+    public function logout()
+    
+    {
+        auth('sanctum')->user()->currentAccessToken()->delete();
 
-    //     $user = User::findOrFail($id);
+        return response()->json('LogOut com sucesso');
+    }
 
-    //     $data = $request->validated();
+
+ 
+    public function update(UserUpdateRequest $request, string $id)
+    {
+        if ($request->password)
+        {
+            $request['password'] = bcrypt($request->password);
+        }
+
+        dd($request->validated());
+
+        $user = User::findOrFail($id);
+
+        $data = $request->validated();
         
-    //     return response()->json('Usuário atualizado com sucesso');
-    // }
+        return response()->json('Usuário atualizado com sucesso');
+    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function destroy(string $id)
-    // {
-    //     User::findOrFail($id)->delete();
+  
+    public function destroy(string $id)
+    {
+        User::findOrFail($id)->delete();
 
-    //     return response()->json('Usuario eliminado com sucesso');
-    // }
+        return response()->json('Usuario eliminado com sucesso', 200);
+    }
 
  
 }
