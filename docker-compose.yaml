@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    networks:
+      - app-php
+
+  pgsql:
+    
+    image: postgres:10
+    container_name: pgsql
+    ports: 
+      - 5433:5432
+    expose:
+      - 5432
+    volumes:
+      - ./storage/db_psql:/var/lib/postgres
+    environment:
+     
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=admin
+    networks:
+      - app-php
+
+
+networks:
+  app-php:
