@@ -63,7 +63,7 @@ class UserController extends Controller
     {
         auth('sanctum')->user()->currentAccessToken()->delete();
 
-        return response()->json('Logout feito com sucesso');
+        return response()->json(['message' => 'Logout feito com sucesso'], 200);
     }
 
 

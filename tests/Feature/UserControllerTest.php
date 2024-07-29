@@ -83,19 +83,32 @@ class UserControllerTest extends TestCase
     );
     }
 
-    // public function logout_user_test(): void
-    // {
-    //     $response = $this->get('/');
+    public function test_logout_user(): void
+    {
+        $user = Sanctum::actingAs(
+            \App\Models\User::factory()->createOne()
+        )->toArray();
 
-    //     $response->assertStatus(200);
-    // }
+        $response = $this->postJson('/api/user/logout');
 
-    // public function create_user_test(): void
-    // {
-    //     $response = $this->get('/');
+        $response->assertStatus(200);
 
-    //     $response->assertStatus(200);
-    // }
+        $response->assertJson(['message' => 'Logout feito com sucesso']);
+    }
+
+    public function test_create_user(): void
+    {
+        $user = \App\Models\User::factory()->makeOne()->toArray();
+
+        $user['password'] = 'secret12345';
+
+
+        $response = $this->postJson('/api/user/create', $user);
+
+        $response->assertStatus(201);
+
+        $response->assertJson(['message' => 'usuário criado com sucesso']);
+    }
 
     // public function update_user_test(): void
     // {
