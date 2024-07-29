@@ -102,7 +102,6 @@ class UserControllerTest extends TestCase
 
         $user['password'] = 'secret12345';
 
-
         $response = $this->postJson('/api/user/create', $user);
 
         $response->assertStatus(201);
@@ -110,14 +109,22 @@ class UserControllerTest extends TestCase
         $response->assertJson(['message' => 'usuário criado com sucesso']);
     }
 
-    // public function update_user_test(): void
-    // {
-    //     $response = $this->get('/');
+    public function test_update_user(): void
+    {
+        $user = \App\Models\User::factory()->create();
 
-    //     $response->assertStatus(200);
-    // }
+        $update = ['name' => 'test user'];
 
-    // public function destroy_user_test(): void
+        $response = $this->withHeaders([
+            'Content-Type' => 'application/json',
+        ])->postJson("/api/user/update/{$user->id}", $update);
+
+        $response->assertStatus(200);
+
+        $response->assertJson(['message' => 'Usuário atualizado com sucesso']);
+    }
+
+    // public function test_destroy_user(): void
     // {
     //     $response = $this->get('/');
 

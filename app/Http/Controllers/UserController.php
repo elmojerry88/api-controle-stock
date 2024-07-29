@@ -75,13 +75,11 @@ class UserController extends Controller
             $request['password'] = bcrypt($request->password);
         }
 
-        dd($request->validated());
-
-        $user = User::findOrFail($id);
-
         $data = $request->validated();
+
+        $user = User::findOrFail($id)->save($data);
         
-        return response()->json('Usuário atualizado com sucesso');
+        return response()->json(['message' => 'Usuário atualizado com sucesso'], 200);
     }
 
   
