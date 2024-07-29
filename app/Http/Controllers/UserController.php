@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $user = User::all();
 
-        return response()->json($user);
+        return response()->json($user, 200);
     }
 
  
@@ -28,7 +28,7 @@ class UserController extends Controller
         
         User::create($user);
 
-        return response()->json(['message' => 'usuário criado com sucesso'],200);
+        return response()->json(['message' => 'usuário criado com sucesso'],201);
     }
 
     public function login(Request $request)
@@ -42,7 +42,7 @@ class UserController extends Controller
  
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'email' => ['email ou senha incorreta'],
             ]);
         }
 
@@ -54,8 +54,8 @@ class UserController extends Controller
             'user' => $user,
         ];
 
-        return response($data, 200)
-                    ->header('Content-Type', 'aplication/json');
+        return response()->json($data, 200)
+                         ->header('Content-Type', 'aplication/json');
     }
 
     public function logout()
@@ -63,7 +63,7 @@ class UserController extends Controller
     {
         auth('sanctum')->user()->currentAccessToken()->delete();
 
-        return response()->json('LogOut com sucesso');
+        return response()->json('Logout feito com sucesso');
     }
 
 
