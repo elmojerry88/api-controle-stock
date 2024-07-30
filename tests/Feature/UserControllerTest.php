@@ -128,7 +128,9 @@ class UserControllerTest extends TestCase
     {
         $user = \App\Models\User::factory()->create();
 
-        $response = $this->deleteJson('/api/user/delete/{$user->id}');
+        $response = $this->withHeaders([
+            'Content-Type' => 'application/json',
+        ])->deleteJson("/api/user/delete/{$user->id}");
 
         $response->assertStatus(200);
 

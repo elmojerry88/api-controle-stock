@@ -10,7 +10,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('/', 'index');
     Route::post('/update/{id}', 'update');
     Route::post('/create','store');
-    Route::delete('/delete', 'destroy');
+    Route::delete('/delete/{id}', 'destroy');
     Route::post('/login', 'login');
     Route::post('/logout', 'logout')->middleware(['auth:sanctum']);
 });
