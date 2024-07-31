@@ -19,7 +19,7 @@ class EmployeeController extends Controller
 
         \App\Models\Employees::create($data);
 
-        return response()->json(['message' => 'Employees criado com sucesso'], 201);
+        return response()->json(['message' => 'employee criado com sucesso'], 201);
     }
 
     public function show(string $id)
@@ -29,13 +29,13 @@ class EmployeeController extends Controller
         return response()->json($employee, 200);
     }
 
-    public function update(Request $request, string $id)
+    public function update(\App\Http\Requests\EmployeeUpdateRequest $request, string $id)
     {
         $data = $request->validated();
 
         \App\Models\Employees::find($id)->save($data);
 
-        return response()->json(['message' => 'employees atualizado com sucesso'], 200);
+        return response()->json(['message' => 'employee atualizado com sucesso'], 200);
     }
 
     public function delete(string $id) 
