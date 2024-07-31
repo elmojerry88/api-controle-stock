@@ -13,7 +13,7 @@ class EmployeeController extends Controller
         return response()->json($employee, 200);
     }
 
-    public function store(Request $request)
+    public function store(\App\Http\Requests\EmployeeStoreRequest $request)
     {
         $data = $request->validated();
 
