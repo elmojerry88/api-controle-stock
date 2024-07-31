@@ -35,7 +35,7 @@ Route::controller(\App\Http\Controllers\VehicleController::class)->prefix('vehic
     Route::delete('/delete/{id}', 'destroy');
 });
 
-Route::controller(\App\Http\Controllers\DeliveriesEqupmentController::class)->prefix('delivery/equipment')->group(function () {
+Route::controller(\App\Http\Controllers\DeliveriesEquipmentController::class)->prefix('delivery/equipment')->group(function () {
     Route::get('/', 'index');
     Route::put('/deliver', 'deliver');
     Route::post('/return','deliverReturn');
