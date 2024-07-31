@@ -19,7 +19,7 @@ class EquipmentsFactory extends Factory
         return [
             'name' => fake()->name(),
             'description' => fake()->text(40),
-            'serial_number' => fake()->numberBetween(23456, 3333333),
+            'serial_number' => "L302A233DDER",
         ];
     }
 }
