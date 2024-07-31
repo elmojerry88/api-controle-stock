@@ -10,9 +10,11 @@ class Deliveries_equiments extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'.
-        'email',
-        'password',
-        'role',
-    ];
+        'employee_id',
+        'deliverable_id',
+        'delivered_by',
+        'deliverable_type',
+        'delivery_date',
+        'return_date'
+      ];
 }

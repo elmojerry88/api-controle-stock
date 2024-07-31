@@ -10,7 +10,7 @@ class Equipments extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'.
+        'name',
         'description',
         'serial_number',
     ];

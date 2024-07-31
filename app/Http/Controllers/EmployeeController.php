@@ -10,6 +10,8 @@ class EmployeeController extends Controller
     {
         $employee = \App\Models\Employees::all();
 
+        // dd($employee);
+
         return response()->json($employee, 200);
     }
 

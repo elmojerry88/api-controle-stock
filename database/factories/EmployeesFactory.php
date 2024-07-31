@@ -19,7 +19,7 @@ class EmployeesFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'phone' => fake()->unique()->phoneNumber(),
+            'phone' => 929801224,
         ];
     }
 }
