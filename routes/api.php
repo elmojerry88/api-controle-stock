@@ -37,16 +37,14 @@ Route::controller(\App\Http\Controllers\VehicleController::class)->prefix('vehic
 
 Route::controller(\App\Http\Controllers\DeliveriesEqupmentController::class)->prefix('delivery/equipment')->group(function () {
     Route::get('/', 'index');
-    Route::put('/update/{id}', 'update');
-    Route::post('/create','store');
-    Route::delete('/delete/{id}', 'destroy');
+    Route::put('/deliver', 'deliver');
+    Route::post('/return','deliverReturn');
 });
 
 Route::controller(\App\Http\Controllers\DeliveriesVehicleController::class)->prefix('delivery/vehicle')->group(function () {
     Route::get('/', 'index');
-    Route::put('/update/{id}', 'update');
-    Route::post('/create','store');
-    Route::delete('/delete/{id}', 'destroy');
+    Route::put('/deliver', 'deliver');
+    Route::post('/return','deliverReturn');
 });
 
 
