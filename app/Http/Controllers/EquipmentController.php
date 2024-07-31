@@ -13,7 +13,7 @@ class EquipmentController extends Controller
         return response()->json($data, 200);
     }
 
-    public function store(Request $request)
+    public function store(\App\Http\Requests\EquipmentStoreRequest $request)
     {
         $data = $request->validated();
 

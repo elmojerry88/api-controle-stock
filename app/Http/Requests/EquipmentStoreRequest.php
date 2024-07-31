@@ -22,7 +22,9 @@ class EquipmentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required | min:3 | max:20 | string',
+            'description' => 'required | min:3 | max:200 | string',
+            'serial_number' => 'required | min:5 | max:30 | string'
         ];
     }
 }
