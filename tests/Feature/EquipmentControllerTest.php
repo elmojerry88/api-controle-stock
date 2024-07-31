@@ -37,21 +37,44 @@ class EquipmentControllerTest extends TestCase
         );
     }
 
-    // public function test_show_one_equipment(): void
-    // {
-    //     $data = \App\Models\Equipments::factory()->create();
+    public function test_show_one_equipment(): void
+    {
+        $data = \App\Models\Equipments::factory()->create();
 
-    //     $response = $this->getJson("/api/equipment/{$data->id}");
+        $response = $this->getJson("/api/equipment/{$data->id}");
 
-    //     $response->assertStatus(200);
-    // }
+        $response->assertStatus(200);
 
-    // public function test_create_equiment(): void
-    // {
-    //     $response = $this->postJson('/');
+        $response->assertJson(fn (AssertableJson $json) =>
 
-    //     $response->assertStatus(201);
-    // }
+        $json->hasAll([
+            'name',
+            'description',
+            'serial_number',
+            'id',
+            'created_at',
+            'updated_at'
+        ])
+        ->whereAllType([
+            'name' => 'string',
+            'description' => 'string',
+            'serial_number' => 'string',
+            'id' => 'integer',
+            'created_at' => 'string',
+            'updated_at' => 'string'
+        ]));        
+    }
+
+    public function test_create_equiment(): void
+    {
+        $data = \App\Models\Equipments::factory()->create()->toArray();
+
+        $response = $this->postJson('/api/equipment/create', $data);
+
+        $response->assertStatus(201);
+
+        $response->assertJson(['message' => 'equipamento criado com sucesso']);
+    }
 
     // public function test_update_equipment(): void
     // {

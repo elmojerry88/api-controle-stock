@@ -26,6 +26,7 @@ Route::controller(\App\Http\Controllers\EquipmentController::class)->prefix('equ
     Route::put('/update/{id}', 'update');
     Route::post('/create','store');
     Route::delete('/delete/{id}', 'destroy');
+    Route::get('/{id}', 'show');
 });
 
 Route::controller(\App\Http\Controllers\VehicleController::class)->prefix('vehicle')->group(function () {

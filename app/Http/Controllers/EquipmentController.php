@@ -22,6 +22,13 @@ class EquipmentController extends Controller
         return response()->json(['message' => 'equipamento criado com sucesso'], 201);
     }
 
+    public function show(string $id)
+    {
+        $data = \App\Models\Equipments::find($id)->first();
+
+        return response()->json($data, 200);
+    }
+
     public function update(Request $request, string $id)
     {
         $data = $request->validated();
