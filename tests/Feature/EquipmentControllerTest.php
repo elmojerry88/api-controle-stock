@@ -69,7 +69,8 @@ class EquipmentControllerTest extends TestCase
     {
         $data = \App\Models\Equipments::factory()->create()->toArray();
 
-        $response = $this->postJson('/api/equipment/create', $data);
+        $response = $this->withHeader('Content-type', 'aplication/json')
+                         ->postJson('/api/equipment/create', $data);
 
         $response->assertStatus(201);
 
