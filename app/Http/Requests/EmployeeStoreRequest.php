@@ -22,9 +22,9 @@ class EmployeeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required | min:3 | max:20',
+            'name' => 'required | min:3 | max:15',
             'email' => ['email','required'],
-            'password' => ['required'],
+            'phone' => ['required', 'numeric'],
         ];
     }
 }
