@@ -49,7 +49,65 @@ class EmployeesControllerTest extends TestCase
 
         $response->assertStatus(201);
 
-        $response->assertJson(['message' => 'employee criado com sucesso']);
+        $response->assertJson( fn (AssertableJson $json) =>
+            
+            $json->whereAll([
+                'message' => 'employee criado com sucesso'
+            ]));  
+    }
 
+    public function test_show_one_employees()
+    {
+        $employee = \App\Models\Employees::factory()->create();
+
+        $response = $this->getJson("/api/employee/{$employee->id}");
+
+        $response->assertStatus(200);
+
+        $response->assertJson( fn (AssertableJson $json) =>
+
+            $json->whereAllType([
+                'name' => 'string',
+                'email' => 'string',
+                'phone' => 'string',
+                'id' => 'integer',
+                'created_at' => 'string',
+                'updated_at' => 'string'
+
+            ])
+            ->hasAll([
+                'name',
+                'email',
+                'phone',
+                'id',
+                'created_at',
+                'updated_at'
+            ]));
+    }
+
+    public function test_update_employee()
+    {
+        $employee = \App\Models\Employees::factory()->createOne();
+
+        $update = ['name' => 'test user'];
+
+        $response = $this->withHeader('Content-type', 'Aplication/jon')
+                         ->putJson("/api/employee/update/{$employee->id}", $update);
+        
+        $response->assertStatus(200);
+
+        $response->assertJson(['message' => 'employee atualizado com sucesso']);
+    }
+
+    public function test_delete_employee_()
+    {
+        $employee = \App\Models\Employees::factory()->createOne();
+
+        $response = $this->withHeader('Content-Type', 'application/json')
+                         ->deleteJson("/api/employee/delete/{$employee->id}");
+        
+        $response->assertStatus(200);
+
+        $response->assertJson(['message' => 'employee deletado com sucesso']);
     }
 }

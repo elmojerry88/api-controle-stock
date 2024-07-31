@@ -40,7 +40,7 @@ class EmployeeController extends Controller
         return response()->json(['message' => 'employee atualizado com sucesso'], 200);
     }
 
-    public function delete(string $id) 
+    public function destroy(string $id) 
     {
         \App\Models\Employees::findOrFail($id)->delete();
 

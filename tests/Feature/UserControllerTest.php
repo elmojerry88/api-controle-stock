@@ -117,7 +117,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Content-Type' => 'application/json',
-        ])->postJson("/api/user/update/{$user->id}", $update);
+        ])->putJson("/api/user/update/{$user->id}", $update);
 
         $response->assertStatus(200);
 
