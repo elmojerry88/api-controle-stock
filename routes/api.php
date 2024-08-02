@@ -37,15 +37,15 @@ Route::controller(\App\Http\Controllers\VehicleController::class)->prefix('vehic
 });
 
 Route::controller(\App\Http\Controllers\DeliveriesEquipmentController::class)->prefix('delivery/equipment')->group(function () {
-    Route::get('/', 'index');
-    Route::put('/deliver', 'deliver');
-    Route::post('/return','deliverReturn');
+    Route::get('/', 'index')->middleware(['auth:sanctum']);
+    Route::put('/deliver', 'deliver')->middleware(['auth:sanctum']);
+    Route::post('/return','deliverReturn')->middleware(['auth:sanctum']);
 });
 
 Route::controller(\App\Http\Controllers\DeliveriesVehicleController::class)->prefix('delivery/vehicle')->group(function () {
-    Route::get('/', 'index');
-    Route::put('/deliver', 'deliver');
-    Route::post('/return','deliverReturn');
+    Route::get('/', 'index')->middleware(['auth:sanctum']);
+    Route::put('/deliver', 'deliver')->middleware(['auth:sanctum']);
+    Route::post('/return','deliverReturn')->middleware(['auth:sanctum']);
 });
 
 
