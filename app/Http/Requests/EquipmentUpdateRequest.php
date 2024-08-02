@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EquipmentStoreRequest extends FormRequest
+class EquipmentUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class EquipmentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required | min:3 | max:30 | string',
-            'description' => 'required | min:3 | max:200 | string',
-            'serial_number' => 'required | min:5 | max:30 | string'
+            'name' => 'nullable | min:3 | max:30 | string',
+            'description' => 'nullable | min:3 | max:200 | string',
+            'serial_number' => 'nullable | min:5 | max:30 | string'
         ];
     }
 }

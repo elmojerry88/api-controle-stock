@@ -77,17 +77,27 @@ class EquipmentControllerTest extends TestCase
         $response->assertJson(['message' => 'equipamento criado com sucesso']);
     }
 
-    // public function test_update_equipment(): void
-    // {
-    //     $response = $this->postJson("/");
+    public function test_update_equipment(): void
+    {
+        $data = \App\Models\Equipments::factory()->create();
 
-    //     $response->assertStatus(200);
-    // }
+        $update = ['name' => 'test user'];
+        
+        $response = $this->putJson("/api/equipment/update/{$data->id}", $update);
 
-    // public function test_delete_equipment(): void
-    // {
-    //     $response = $this->deleteJson("/");
+        $response->assertStatus(200);
 
-    //     $response->assertStatus(200);
-    // }
+        $response->assertJson(['message' => 'equipamento atualizado com sucesso']);
+    }
+
+    public function test_delete_equipment(): void
+    {
+        $data = \App\Models\Equipments::factory()->create();
+
+        $response = $this->deleteJson("/api/equipment/delete/{$data->id}");
+
+        $response->assertStatus(200);
+
+        $response->assertJson(['message' => 'equipamento eliminado com sucesso']);
+    }
 }

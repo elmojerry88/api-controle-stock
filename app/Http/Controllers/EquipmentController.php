@@ -29,11 +29,11 @@ class EquipmentController extends Controller
         return response()->json($data, 200);
     }
 
-    public function update(Request $request, string $id)
+    public function update(\App\Http\Requests\EquipmentUpdateRequest $request, string $id)
     {
         $data = $request->validated();
 
-        \App\Models\Equipments::findOrFail($id)->saveOrFail($data);
+        \App\Models\Equipments::findOrFail($id)->save($data);
 
         return response()->json(['message' => 'equipamento atualizado com sucesso'],200);
     }
