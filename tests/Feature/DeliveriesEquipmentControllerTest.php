@@ -11,7 +11,7 @@ use Laravel\Sanctum\Sanctum;
 class DeliveriesEquipmentControllerTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_get_all_deliveies_equipments(): void
+    public function test_get_all_deliveries_equipments(): void
     {
         Sanctum::actingAs(
             \App\Models\User::factory()->createOne()
@@ -31,8 +31,6 @@ class DeliveriesEquipmentControllerTest extends TestCase
                 '0.deliverable_type' => $data['deliverable_type'],
                 '0.delivery_date' => $data['delivery_date'],
                 '0.return_date' => $data['return_date'],
-                '0.created_at' => $data['created_at'],
-                '0.updated_at' => $data['updated_at'],
             ])
             ->whereAllType([
                 '0.employee_id' => 'integer',
@@ -40,7 +38,7 @@ class DeliveriesEquipmentControllerTest extends TestCase
                 '0.delivered_by' => 'integer',
                 '0.deliverable_type' => 'string',
                 '0.delivery_date' =>'string',
-                '0.return_date' => 'string',
+                '0.return_date' => 'null|string',
                 '0.created_at' => 'string',
                 '0.updated_at' => 'string',
             ])
@@ -54,5 +52,42 @@ class DeliveriesEquipmentControllerTest extends TestCase
                 '0.created_at',
                 '0.updated_at'
             ]));
+    }
+
+    public function test_register_delivery()
+    {
+        Sanctum::actingAs(
+            \App\Models\User::factory()->createOne()
+        );
+
+        $equipment = [
+            'employee_id' => \App\Models\Employees::factory()->create()->id,
+            'deliverable_id' => \App\Models\Equipments::factory()->create()->id,
+            'deliverable_type' => 'equipment',
+        ];
+
+        $response = $this->withHeader('Content-Type', 'application/json')
+                         ->postJson('/api/delivery/equipment/deliver', $equipment);
+
+        $response->assertStatus(201);
+
+        $response->assertJson(['message' => 'entrega de equipamento registrada com sucesso']);
+
+    }
+
+    public function test_fail_register_with_unauthenticated_user()
+    {
+        $equipment = [
+            'employee_id' => \App\Models\Employees::factory()->create()->id,
+            'deliverable_id' => \App\Models\Equipments::factory()->create()->id,
+            'deliverable_type' => 'equipment',
+        ];
+
+        $response = $this->withHeader('Content-Type', 'application/json')
+                         ->postJson('/api/delivery/equipment/deliver', $equipment);
+
+        $response->assertStatus(401);
+
+        $response->assertJson(['message' => 'Unauthenticated.']);
     }
 }

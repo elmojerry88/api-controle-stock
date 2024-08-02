@@ -36,15 +36,15 @@ Route::controller(\App\Http\Controllers\VehicleController::class)->prefix('vehic
     Route::delete('/delete/{id}', 'destroy');
 });
 
-Route::controller(\App\Http\Controllers\DeliveriesEquipmentController::class)->prefix('delivery/equipment')->group(function () {
-    Route::get('/', 'index')->middleware(['auth:sanctum']);
-    Route::put('/deliver', 'deliver')->middleware(['auth:sanctum']);
-    Route::post('/return','deliverReturn')->middleware(['auth:sanctum']);
+Route::controller(\App\Http\Controllers\DeliveriesEquipmentController::class)->prefix('delivery')->group(function () {
+    Route::get('/equipment', 'index')->middleware(['auth:sanctum']);
+    Route::post('/equipment/deliver', 'deliver')->middleware(['auth:sanctum']);
+    Route::post('/equiment/return','deliverReturn')->middleware(['auth:sanctum']);
 });
 
-Route::controller(\App\Http\Controllers\DeliveriesVehicleController::class)->prefix('delivery/vehicle')->group(function () {
-    Route::get('/', 'index')->middleware(['auth:sanctum']);
-    Route::put('/deliver', 'deliver')->middleware(['auth:sanctum']);
+Route::controller(\App\Http\Controllers\DeliveriesVehicleController::class)->prefix('delivery')->group(function () {
+    Route::get('/vehicle', 'index')->middleware(['auth:sanctum']);
+    Route::post('/vehicle/deliver', 'deliver')->middleware(['auth:sanctum']);
     Route::post('/return','deliverReturn')->middleware(['auth:sanctum']);
 });
 

@@ -23,7 +23,7 @@ class DeliveriesEquipmentDeliveryRequest extends FormRequest
     {
         return [
             'employee_id' => 'required | integer',
-            'deliverable_type' => 'required | string | min:9 |max:9 | accepted:equipment',
+            'deliverable_type' => 'required | string',
             'deliverable_id' => 'required | integer'
         ];
     }
