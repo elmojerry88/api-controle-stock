@@ -54,7 +54,7 @@ class DeliveriesEquipmentControllerTest extends TestCase
             ]));
     }
 
-    public function test_register_delivery()
+    public function test_register_delivery_equipment()
     {
         Sanctum::actingAs(
             \App\Models\User::factory()->createOne()
@@ -75,7 +75,7 @@ class DeliveriesEquipmentControllerTest extends TestCase
 
     }
 
-    public function test_fail_register_with_unauthenticated_user()
+    public function test_fail_register_equipment_with_unauthenticated_user()
     {
         $equipment = [
             'employee_id' => \App\Models\Employees::factory()->create()->id,
