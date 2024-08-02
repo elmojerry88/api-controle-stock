@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Deliveries_equiments>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Deliveries_equipments>
  */
-class DeliveryEquipmentFactory extends Factory
+class Deliveries_equipmentsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,8 +20,8 @@ class DeliveryEquipmentFactory extends Factory
             'employee_id' => \App\Models\Employees::factory()->create(),
             'deliverable_id' => \App\Models\Equipments::factory()->create(),
             'delivered_by' => \App\Models\User::factory()->create(),
-            'deliverable_type' => 'equipments',
-            'delivery_date' => now(),
+            'deliverable_type' => 'equipment',
+            'delivery_date' => fake()->timezone(),
             'return_date' => null
         ];
     }

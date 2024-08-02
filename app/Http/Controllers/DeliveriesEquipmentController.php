@@ -9,7 +9,7 @@ class DeliveriesEquipmentController extends Controller
 {
     public function index()
     {
-        $equipment = \App\Models\Deliveries_equiments::all();
+        $equipment = \App\Models\Deliveries_equipments::all();
 
         return response()->json($equipment, 200);
     }
@@ -27,7 +27,7 @@ class DeliveriesEquipmentController extends Controller
 
         $data['deliverd_by'] = $user->id;
 
-        \App\Models\Deliveries_equiments::create($data);
+        \App\Models\Deliveries_equipments::create($data);
 
         return response()->json(['message' => 'entrega registrada com sucesso'], 200);
     }
