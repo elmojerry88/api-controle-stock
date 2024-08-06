@@ -35,8 +35,19 @@ class DeliveriesEquipmentController extends Controller
         return response()->json(['message' => 'entrega de equipamento registrada com sucesso'], 201);
     }
 
-    public function deliverReturn()
+    public function deliverReturn(Request $request)
     {
-        //
+        if(!Auth::user())
+        {
+            return response()->json(['message' => 'usuário não autenticado'], 401);
+        }
+
+        $data = $request->validated();
+
+        $data['return_date'] = now();
+
+        \App\Models\Deliveries_equipments::find($data->deliverable_id)->save($data->return_date);
+
+        return response()->json(['message' => 'devolução de equipamento registrada com sucesso'], 200);
     }
 }
