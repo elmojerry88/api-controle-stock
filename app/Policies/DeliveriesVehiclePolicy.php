@@ -9,7 +9,7 @@ class DeliveriesVehiclePolicy
 {
     public function addDeliverVehicle(User $user) : Response
     {
-        return $user->role === 'admin' || $user->role === 'gestor de equipamento'         
+        return $user->role === 'admin' || $user->role === 'gestor de viatura'         
         ? Response::allow()
         : Response::deny('Usuário com autorização insuficiente');
               
@@ -17,7 +17,7 @@ class DeliveriesVehiclePolicy
 
     public function addReturnDeliverVehicle(User $user) : Response
     {
-        return $user->role === 'admin' || $user->role === 'gestor de equipamento'  
+        return $user->role === 'admin' || $user->role === 'gestor de viatura'  
                 ? Response::allow()
                 : Response::deny('Usuário com autorização insuficiente');
     }

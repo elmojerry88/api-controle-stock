@@ -9,13 +9,14 @@ class DeliveriesVehicleController extends Controller
 {
     public function index()
     {
-        $equipment = \App\Models\Deliveries_equipments::all();
+        $equipment = \App\Models\Deliveries_vehicle::all();
 
         return response()->json($equipment, 200);
     }
 
     public function deliver(\App\Http\Requests\DeliveriesVehicleDeliveryRequest $request)
     {
+        dd($request->user());
    
         if(!Auth::user())
         {
@@ -32,7 +33,7 @@ class DeliveriesVehicleController extends Controller
 
         $data['delivered_by'] = $user->id;
 
-        \App\Models\Deliveries_equipments::create($data);
+        \App\Models\Deliveries_vehicle::create($data);
 
         return response()->json(['message' => 'entrega de veículo registrada com sucesso'], 201);
     }
@@ -51,7 +52,7 @@ class DeliveriesVehicleController extends Controller
 
         $data = $request->validated();
 
-        \App\Models\Deliveries_equipments::find($data['deliverable_id'])->update($data);
+        \App\Models\Deliveries_vehicle::find($data['deliverable_id'])->update($data);
 
         return response()->json(['message' => 'devolução de veículo registrada com sucesso'], 200);
 

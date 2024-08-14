@@ -20,8 +20,8 @@ class Deliveries_vehicleFactory extends Factory
             'employee_id' => \App\Models\Employees::factory()->create(),
             'deliverable_id' => \App\Models\Vehicles::factory()->create(),
             'delivered_by' => \App\Models\User::factory()->create(),
-            'deliverable_type' => 'vehicles',
-            'delivery_date' => now(),
+            'deliverable_type' => 'vehicle',
+            'delivery_date' => fake()->date('d-m-Y', 'now'),
             'return_date' => null
         ];
     }

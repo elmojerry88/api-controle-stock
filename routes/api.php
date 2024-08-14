@@ -45,7 +45,7 @@ Route::controller(\App\Http\Controllers\DeliveriesEquipmentController::class)->p
 Route::controller(\App\Http\Controllers\DeliveriesVehicleController::class)->prefix('delivery')->group(function () {
     Route::get('/vehicle', 'index')->middleware(['auth:sanctum']);
     Route::post('/vehicle/deliver', 'deliver')->middleware(['auth:sanctum']);
-    Route::post('/vehicle/return/{id}','deliverReturn')->middleware(['auth:sanctum']);
+    Route::post('/vehicle/return','deliverReturn')->middleware(['auth:sanctum']);
 });
 
 
