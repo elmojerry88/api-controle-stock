@@ -11,7 +11,7 @@ class DeliveriesEquipmentReturnRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class DeliveriesEquipmentReturnRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'deliverable_id' => 'required | integer'
+            'deliverable_id' => 'required | integer',
+            'return_date' => 'required | date'
             
         ];
     }

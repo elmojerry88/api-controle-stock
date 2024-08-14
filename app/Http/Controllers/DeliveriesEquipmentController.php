@@ -16,10 +16,14 @@ class DeliveriesEquipmentController extends Controller
 
     public function deliver(\App\Http\Requests\DeliveriesEquipmentDeliveryRequest $request)
     {
-        
+   
         if(!Auth::user())
         {
             return response()->json(['message' => 'usuário não autenticado'], 401);
+        }
+
+        if ($request->user()->cannot('addDeliverEquipment', \App\Models\User::class)) {
+            abort(403);
         }
         
         $user = Auth::user();
@@ -28,26 +32,28 @@ class DeliveriesEquipmentController extends Controller
 
         $data['delivered_by'] = $user->id;
 
-        $data['delivery_date'] = now();
-
         \App\Models\Deliveries_equipments::create($data);
 
         return response()->json(['message' => 'entrega de equipamento registrada com sucesso'], 201);
     }
 
-    public function deliverReturn(Request $request)
+    public function deliverReturn(\App\Http\Requests\DeliveriesEquipmentReturnRequest $request)
     {
+        
         if(!Auth::user())
         {
             return response()->json(['message' => 'usuário não autenticado'], 401);
         }
 
+        if ($request->user()->cannot('addReturnDeliverEquipment', \App\Models\User::class)) {
+            abort(403);
+        }
+
         $data = $request->validated();
 
-        $data['return_date'] = now();
-
-        \App\Models\Deliveries_equipments::find($data->deliverable_id)->save($data->return_date);
+        \App\Models\Deliveries_equipments::find($data['deliverable_id'])->update($data);
 
         return response()->json(['message' => 'devolução de equipamento registrada com sucesso'], 200);
+
     }
 }

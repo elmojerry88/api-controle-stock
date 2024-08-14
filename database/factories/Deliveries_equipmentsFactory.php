@@ -21,7 +21,7 @@ class Deliveries_equipmentsFactory extends Factory
             'deliverable_id' => \App\Models\Equipments::factory()->create(),
             'delivered_by' => \App\Models\User::factory()->create(),
             'deliverable_type' => 'equipment',
-            'delivery_date' => fake()->timezone(),
+            'delivery_date' => fake()->date('d-m-Y', 'now'),
             'return_date' => null
         ];
     }

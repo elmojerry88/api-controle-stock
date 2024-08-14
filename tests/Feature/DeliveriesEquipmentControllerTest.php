@@ -60,11 +60,7 @@ class DeliveriesEquipmentControllerTest extends TestCase
             \App\Models\User::factory()->createOne()
         );
 
-        $equipment = [
-            'employee_id' => \App\Models\Employees::factory()->create()->id,
-            'deliverable_id' => \App\Models\Equipments::factory()->create()->id,
-            'deliverable_type' => 'equipment',
-        ];
+        $equipment = \App\Models\Deliveries_equipments::factory()->create()->toArray();
 
         $response = $this->withHeader('Content-Type', 'application/json')
                          ->postJson('/api/delivery/equipment/deliver', $equipment);
@@ -89,5 +85,26 @@ class DeliveriesEquipmentControllerTest extends TestCase
         $response->assertStatus(401);
 
         $response->assertJson(['message' => 'Unauthenticated.']);
+    }
+
+    public function test_return_equipment()
+    {
+        Sanctum::actingAs(
+            \App\Models\User::factory()->createOne()
+        );
+
+        $delivery = \App\Models\Deliveries_equipments::factory()->createOne();
+
+        $delivery = [
+            'return_date' => fake()->date('d-m-Y', 'now'),
+            'deliverable_id' => $delivery->deliverable_id
+        ];
+
+        $response = $this->withHeader('Content-Type', 'application/json')
+                         ->postJson('/api/delivery/equipment/return',$delivery );
+
+        $response->assertStatus(200);
+
+        $response->assertJson(['message' => 'devolução de equipamento registrada com sucesso']);
     }
 }

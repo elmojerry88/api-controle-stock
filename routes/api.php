@@ -39,7 +39,7 @@ Route::controller(\App\Http\Controllers\VehicleController::class)->prefix('vehic
 Route::controller(\App\Http\Controllers\DeliveriesEquipmentController::class)->prefix('delivery')->group(function () {
     Route::get('/equipment', 'index')->middleware(['auth:sanctum']);
     Route::post('/equipment/deliver', 'deliver')->middleware(['auth:sanctum']);
-    Route::post('/equiment/return/{id}','deliverReturn')->middleware(['auth:sanctum']);
+    Route::post('/equipment/return','deliverReturn')->middleware(['auth:sanctum']);
 });
 
 Route::controller(\App\Http\Controllers\DeliveriesVehicleController::class)->prefix('delivery')->group(function () {
